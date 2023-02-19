@@ -1,6 +1,7 @@
-require('dotenv').config({path: __dirname + '/.env'})
+require("dotenv").config({ path: __dirname + "/.env" });
 const express = require("express");
 const mongoose = require("mongoose");
+const authRoutes = require("./routes/authRoutes");
 
 mongoose.set("strictQuery", false);
 
@@ -16,6 +17,8 @@ mongoose.connection.on("error", (err) => {
 });
 
 const app = express();
+
+app.use(authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello there");
