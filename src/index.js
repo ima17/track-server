@@ -2,6 +2,7 @@ require("dotenv").config({ path: __dirname + "/.env" });
 require("./models/User");
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 const authRoutes = require("./routes/authRoutes");
 
 mongoose.set("strictQuery", false);
@@ -19,6 +20,7 @@ mongoose.connection.on("error", (err) => {
 
 const app = express();
 
+app.use(bodyParser.json());
 app.use(authRoutes);
 
 app.get("/", (req, res) => {
