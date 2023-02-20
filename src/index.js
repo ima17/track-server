@@ -4,6 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const authRoutes = require("./routes/authRoutes");
+const requireAuth = require("./middlware/requireAuth");
 
 mongoose.set("strictQuery", false);
 
@@ -23,8 +24,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(authRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Hello there");
+app.get("/", requireAuth, (req, res) => {
+  res.send(`Your email is ${req.user.email}`);
 });
 
 app.listen("3000", () => {
